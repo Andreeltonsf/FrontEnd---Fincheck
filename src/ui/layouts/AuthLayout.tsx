@@ -7,9 +7,9 @@ export function AuthLayout() {
 	return (
 		<div className="flex w-full h-full">
 			<div className="w-full h-full flex justify-center items-center flex-col gap-16 lg:w-1/2">
-				<img src={logoCinza} alt="Logo" className="h-6 text-gray-500" />
+				<img src={logoCinza} alt="Logo" className="h-6 text-gray-500 gap-0" />
 
-				<div className="mt-16 w-full max-w-[504px] px-8 ">
+				<div className=" w-full max-w-[504px] px-8 ">
 					<Outlet />
 				</div>
 			</div>
