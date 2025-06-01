@@ -7,7 +7,7 @@ export interface SignupParams {
 }
 
 type SignupResponse = {
-	acessToken: string;
+	accessToken: string;
 };
 
 export async function signup(params: SignupParams) {
