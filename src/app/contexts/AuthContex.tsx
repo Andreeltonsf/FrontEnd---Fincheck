@@ -22,7 +22,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		return !!storedAccessToken;
 	});
 
-	const { isError, data, isFetching, isSuccess } = useQuery({
+	const { isError, data, isFetching, isSuccess, remove } = useQuery({
 		queryKey: ["LoggedUser"],
 		queryFn: () => usersService.me(),
 		retry: 1,
@@ -37,8 +37,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 	const signout = useCallback(() => {
 		localStorage.removeItem(LocalStorageKeys.ACCESS_TOKEN);
+		remove();
 		setSignedIn(false);
-	}, []);
+	}, [remove]);
 
 	useEffect(() => {
 		toast.error("Sua sessão expirou. Por favor, faça login novamente.");
@@ -52,7 +53,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	}
 
 	return (
-		<AuthContext.Provider value={{ signedIn: isSuccess, signin, signout }}>
+		<AuthContext.Provider
+			value={{ signedIn: isSuccess && signedIn, signin, signout }}
+		>
 			{children}
 		</AuthContext.Provider>
 	);
