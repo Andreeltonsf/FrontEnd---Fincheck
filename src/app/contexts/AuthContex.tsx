@@ -42,8 +42,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	}, [remove]);
 
 	useEffect(() => {
-		toast.error("Sua sessão expirou. Por favor, faça login novamente.");
 		if (isError) {
+			toast.error("Sua sessão expirou. Por favor, faça login novamente.");
 			signout();
 		}
 	}, [isError, signout]);
