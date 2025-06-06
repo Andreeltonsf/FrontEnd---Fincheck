@@ -1,7 +1,7 @@
 import logo from "../../../assets/logo.svg";
 import { UserMenu } from "../../components/UserMenu";
-import { Accounts } from "./components/Accounts";
-import { Transactions } from "./components/Transactions";
+import { Accounts } from "./components/Accounts/Accounts";
+import { Transactions } from "./components/Transactions/Transactions";
 
 export function DashBoard() {
 	return (
