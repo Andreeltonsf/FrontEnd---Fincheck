@@ -52,7 +52,7 @@ export function Accounts() {
 
 					<div className="flex-1 flex flex-col justify-end mt-10 md:mt-0">
 						{accounts.length === 0 && (
-							// biome-ignore lint/complexity/noUselessFragments: <explanation>
+
 
 							<div className="mb-4 flex flex-col" slot="container-start">
 								<strong className="text-white tracking-[-1px] text-lg font-bold">

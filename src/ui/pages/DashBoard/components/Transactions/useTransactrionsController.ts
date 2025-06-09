@@ -7,6 +7,8 @@ export function useTransactionsController() {
 
   return {
     areValuesVisible,
-    isLoading: false, // Placeholder for loading state
+    isInitialLoading: false,
+    isLoading: false,
+    transactions:[{}]
   }
 }
