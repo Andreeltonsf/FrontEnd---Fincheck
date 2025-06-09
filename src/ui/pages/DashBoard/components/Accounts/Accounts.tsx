@@ -1,23 +1,37 @@
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 import { EyeIcon } from "../../../../components/icons/EyeIcon";
 import { AccountCard } from "./AccountCard";
 import { AccountSliderNav } from "./AccountSliderNav";
 import { useAccountsController } from "./useAccountsController";
+import { cn } from "../../../../../app/utils/cn";
+import { Spinner } from "../../../../components/Spinner";
 
 export function Accounts() {
-	const { sliderState, setSliderState, windowWidth } = useAccountsController();
+	const { sliderState, setSliderState, windowWidth,areValuesVisible,toggleValuesVisibility,isLoading } = useAccountsController();
+
+
+
 	return (
 		<div className="bg-[#087F5B] rounded-2xl w-full h-full md:p-10 px-4 py-8 flex flex-col">
-			<div>
+      {isLoading && (
+        <div className="w-full h-full flex items-center justify-center">
+          <Spinner className="text-teal-950/50 fill-white"/>
+        </div>
+      )}
+			{!isLoading && (
+        <>
+         <div>
 				<span className="tracking-[-0.5px] text-white">Saldo Total</span>
 				<div className="flex items-center gap-2">
-					<strong className="text-2xl tracking-[-1px] text-white block">
-						R$ 100.000,00
+					<strong className={cn(
+            "text-white tracking-[-1px] text-2xl",!areValuesVisible && "blur-md")}>
+						{formatCurrency(100000)}
 					</strong>
 					{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-					<button className="w-8 h-8 flex items-center justify-center">
-						<EyeIcon open />
+					<button className="w-8 h-8 flex items-center justify-center" onClick={toggleValuesVisibility}>
+						<EyeIcon open={!areValuesVisible} />
 					</button>
 				</div>
 			</div>
@@ -75,6 +89,8 @@ export function Accounts() {
 					</Swiper>
 				</div>
 			</div>
+        </>
+      )}
 		</div>
 	);
 }

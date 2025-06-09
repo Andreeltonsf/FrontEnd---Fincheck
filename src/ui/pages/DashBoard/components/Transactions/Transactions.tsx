@@ -1,16 +1,28 @@
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { MONTHS } from "../../../../../app/config/constants";
-import { cn } from "../../../../../app/utils/cn";
+import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
 import { TransactionsIcon } from "../../../../components/icons/TransactionsIcon";
-import { SliderOption } from "./SliderOption";
 import { SliderNavigation } from "./SliderNavigation";
+import { SliderOption } from "./SliderOption";
+import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
+import { useTransactionsController } from "./useTransactrionsController";
+import { cn } from "../../../../../app/utils/cn";
+import { Spinner } from "../../../../components/Spinner";
 
 export function Transactions() {
+  const{ areValuesVisible,isLoading } = useTransactionsController();
 	return (
-		<div className="bg-[#F1F3F5] rounded-2xl w-full h-full md:p-10 px-4 py-8">
-			<header className="">
+		<div className="bg-[#F1F3F5] rounded-2xl w-full h-full md:p-10 px-4 py-8 flex flex-col">
+    {isLoading && (
+      <div className="w-full h-full flex items-center justify-center">
+        <Spinner  />
+      </div>
+    )}
+		{!isLoading && (
+      <>
+        	<header className="">
 				<div className="flex items-center justify-between">
 					<button type="button" className="flex items-center gap-2">
 						<TransactionsIcon />
@@ -27,18 +39,16 @@ export function Transactions() {
 
 				<div className="mt-6">
 					<Swiper slidesPerView={3} centeredSlides>
+						<SliderNavigation />
 
-            <SliderNavigation />
-
-						{MONTHS.map((month,index) => (
+						{MONTHS.map((month, index) => (
 							<SwiperSlide key={month}>
-								{({isActive}) => (
-								<SliderOption
-                  month={month}
-                  isActive={isActive}
-                  index={index}
-                  />
-
+								{({ isActive }) => (
+									<SliderOption
+										month={month}
+										isActive={isActive}
+										index={index}
+									/>
 								)}
 							</SwiperSlide>
 						))}
@@ -46,7 +56,27 @@ export function Transactions() {
 				</div>
 			</header>
 
-			<div className=" mt-4">Content</div>
+			<div className=" mt-4 space-y-2 flex-1 overflow-y-auto">
+
+				<div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
+					<div className="flex-1 flex items-center gap-3">
+            <CategoryIcon  type="expense" />
+
+            <div>
+              <strong className="font-bold tracking-[-0.5px] block">Almoço</strong>
+              <span className="text-gray-600 text-sm">12/06/2022</span>
+            </div>
+
+
+          </div>
+
+					<span className={cn("text-red-800 tracking-[0.5px] font-medium",!areValuesVisible && "blur-sm")}>{formatCurrency(100)}</span>
+				</div>
+
+			</div>
+      </>
+    )}
+
 		</div>
 	);
 }
