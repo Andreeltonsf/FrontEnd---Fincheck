@@ -9,6 +9,6 @@ export function useTransactionsController() {
     areValuesVisible,
     isInitialLoading: false,
     isLoading: false,
-    transactions:[{}]
+    transactions:[]
   }
 }
