@@ -2,6 +2,7 @@ import logo from "../../../assets/logo.svg";
 import { UserMenu } from "../../components/UserMenu";
 import { Accounts } from "./components/Accounts/Accounts";
 import { DashboardContextProvider } from "./components/DashBoardContext";
+import { Fab } from "./components/Fab";
 import { Transactions } from "./components/Transactions/Transactions";
 
 export function DashBoard() {
@@ -21,7 +22,9 @@ export function DashBoard() {
 						<Transactions />
 					</div>
 				</main>
-			</div>{" "}
+
+        <Fab />
+			</div>
 		</DashboardContextProvider>
 	);
 }
