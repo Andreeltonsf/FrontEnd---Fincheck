@@ -25,7 +25,7 @@ function DropdownMenuContent({
 			<RdxDropdownMenu.Content
 
 				className={cn(
-					"rounded-2xl p-4 bg-white space-y-2 shadow-[0px_11px_20px_0px_rgba(0,_0,_0,_0.10)] data-[side=bottom]:animate-slide-down-and-fade ",
+					"rounded-2xl p-4 bg-white space-y-2 shadow-[0px_11px_20px_0px_rgba(0,_0,_0,_0.10)] data-[side=bottom]:animate-slide-down-and-fade z-100 ",
 					className,
 				)}
 			>

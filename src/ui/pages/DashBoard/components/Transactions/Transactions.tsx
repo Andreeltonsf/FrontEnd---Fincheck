@@ -11,6 +11,7 @@ import { CategoryIcon } from "../../../../components/icons/categories/CategoryIc
 import { SliderNavigation } from "./SliderNavigation";
 import { SliderOption } from "./SliderOption";
 import { useTransactionsController } from "./useTransactrionsController";
+import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
 
 export function Transactions() {
 	const { areValuesVisible, isInitialLoading, transactions, isLoading } =
@@ -28,13 +29,7 @@ export function Transactions() {
 				<>
 					<header className="">
 						<div className="flex items-center justify-between">
-							<button type="button" className="flex items-center gap-2">
-								<TransactionsIcon />
-								<span className="text-sm text=gray-800 tracking=[-0.5px] font-medium">
-									Transações
-								</span>
-								<ChevronDownIcon className="text-gray-900" />
-							</button>
+							<TransactionTypeDropdown />
 
 							<button type="button" className="flex items-center gap-2">
 								<FilterIcon />
