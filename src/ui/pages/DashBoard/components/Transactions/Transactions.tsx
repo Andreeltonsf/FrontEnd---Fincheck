@@ -12,14 +12,16 @@ import { SliderNavigation } from "./SliderNavigation";
 import { SliderOption } from "./SliderOption";
 import { useTransactionsController } from "./useTransactrionsController";
 import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
+import { FiltersModal } from "./FiltersModal";
 
 export function Transactions() {
-	const { areValuesVisible, isInitialLoading, transactions, isLoading } =
+	const { areValuesVisible, isInitialLoading, transactions, isLoading,handleCloseFiltersModal, isFiltersModalOpen, handleOpenFiltersModal } =
 		useTransactionsController();
 
 	const hasTransactions = transactions.length > 0;
 	return (
 		<div className="bg-[#F1F3F5] rounded-2xl w-full h-full md:p-10 px-4 py-8 flex flex-col">
+
 			{isInitialLoading && (
 				<div className="w-full h-full flex items-center justify-center">
 					<Spinner />
@@ -27,11 +29,12 @@ export function Transactions() {
 			)}
 			{!isInitialLoading && (
 				<>
+        <FiltersModal open={isFiltersModalOpen} onClose={handleCloseFiltersModal} />
 					<header className="">
 						<div className="flex items-center justify-between">
 							<TransactionTypeDropdown />
 
-							<button type="button" className="flex items-center gap-2">
+							<button type="button" className="flex items-center gap-2" onClick={handleOpenFiltersModal}>
 								<FilterIcon />
 							</button>
 						</div>

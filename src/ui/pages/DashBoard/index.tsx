@@ -1,4 +1,5 @@
 import logo from "../../../assets/logo.svg";
+import { Modal } from "../../components/Modal";
 import { UserMenu } from "../../components/UserMenu";
 import { Accounts } from "./components/Accounts/Accounts";
 import { DashboardContextProvider } from "./components/DashBoardContext";
@@ -24,6 +25,13 @@ export function DashBoard() {
 				</main>
 
         <Fab />
+
+        <Modal open={false} title="Modal Tittle" >
+          <div className="flex flex-col gap-4">
+            <p>This is a modal content.</p>
+            <button type="button" className="bg-blue-500 text-white px-4 py-2 rounded">Close</button>
+          </div>
+        </Modal>
 			</div>
 		</DashboardContextProvider>
 	);

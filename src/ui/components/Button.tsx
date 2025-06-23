@@ -18,7 +18,7 @@ export function Button({
 			{...props}
 			disabled={disabled || isLoading}
 			className={cn(
-				"bg-teal-900 hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-gray-100 px-6 h-12 rounded-2xl font-medium text-white flex items-center justify-center ",
+				"bg-[#087F5B] hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-gray-100 px-6 h-12 rounded-2xl font-medium text-white flex items-center justify-center ",
 				className,
 			)}
 		>
