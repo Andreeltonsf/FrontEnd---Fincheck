@@ -1,14 +1,14 @@
 import logo from "../../../assets/logo.svg";
-import { Modal } from "../../components/Modal";
 import { UserMenu } from "../../components/UserMenu";
 import { Accounts } from "./components/Accounts/Accounts";
 import { DashboardContextProvider } from "./components/DashBoardContext";
 import { Fab } from "./components/Fab";
 import { Transactions } from "./components/Transactions/Transactions";
+import { NewAccountModal } from "./modals/NewAccountModal";
 
 export function DashBoard() {
 	return (
-		<DashboardContextProvider >
+		<DashboardContextProvider>
 			<div className=" h-full w-full p-4 md:p-8 md:pb-8 md:pt-6 flex flex-col gap-4">
 				<header className="h-12 flex items-center justify-between">
 					<img src={logo} alt="logo" className="h-6" />
@@ -24,14 +24,9 @@ export function DashBoard() {
 					</div>
 				</main>
 
-        <Fab />
+				<Fab />
 
-        <Modal open={false} title="Modal Tittle" >
-          <div className="flex flex-col gap-4">
-            <p>This is a modal content.</p>
-            <button type="button" className="bg-blue-500 text-white px-4 py-2 rounded">Close</button>
-          </div>
-        </Modal>
+				<NewAccountModal />
 			</div>
 		</DashboardContextProvider>
 	);
