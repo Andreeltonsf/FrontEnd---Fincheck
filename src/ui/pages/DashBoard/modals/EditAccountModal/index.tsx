@@ -1,27 +1,52 @@
 import { Controller } from "react-hook-form";
 import { Button } from "../../../../components/Button";
 import { ColorsDropdownInput } from "../../../../components/ColorsDropdownInput";
+import { ConfirmDelete } from "../../../../components/ConfirmDelete";
 import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
 import { Modal } from "../../../../components/Modal";
 import { Select } from "../../../../components/Select";
-import { useNewAccountModalController } from "./useNewAccountModalController";
+import { TrashIcon } from "../../../../components/icons/TrashIcon";
+import { useEditAccountModalController } from "./useEditAccountModalController";
 
-export function NewAccountModal() {
+export function EditAccountModal() {
 	const {
-		isNewAccountModalOpen,
-		closeNewAccountModal,
+		isEditAccountModalOpen,
+		closeEditAccountModal,
 		errors,
 		register,
 		handleSubmit,
 		control,
 		isLoading,
-	} = useNewAccountModalController();
+		handleCloseDeleteModal,
+		handleOpenDeleteModal,
+		isDeleteModalOpen,
+    handleConfirmDelete,
+    isLoadingDelete,
+	} = useEditAccountModalController();
+
+	if (isDeleteModalOpen) {
+		return (
+			<ConfirmDelete
+				title="Tem certeza que deseja excluir esta conta?"
+        description="Ao excluir a conta,também serão excluídos todos os registros de receita e despesas associados."
+				onClose={handleCloseDeleteModal}
+        onConfirm={handleConfirmDelete}
+        isLoading={isLoadingDelete}
+			/>
+		);
+	}
+
 	return (
 		<Modal
-			open={isNewAccountModalOpen}
-			title="Nova conta"
-			onClose={closeNewAccountModal}
+			open={isEditAccountModalOpen}
+			title="Editar conta"
+			onClose={closeEditAccountModal}
+			rightAction={
+				<button type="button" onClick={handleOpenDeleteModal}>
+					<TrashIcon className="w-6 h-6 text-red-900" />
+				</button>
+			}
 		>
 			<form onSubmit={handleSubmit}>
 				<div className="flex  flex-col">
@@ -91,7 +116,7 @@ export function NewAccountModal() {
 						)}
 					/>
 					<Button type="submit" className="w-full mt-6" isLoading={isLoading}>
-						Criar
+						Salvar
 					</Button>
 				</div>
 			</form>

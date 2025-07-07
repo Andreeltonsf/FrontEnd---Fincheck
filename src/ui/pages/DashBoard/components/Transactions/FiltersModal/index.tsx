@@ -19,7 +19,7 @@ const mockedAccounts =[
 export function FiltersModal({ open, onClose }: FiltersModalProps) {
   const { handleSelectBankAccount, selectedBankAccountId,handleChangeYear, selectedYear } = useFiltersModal();
 	return (
-		<Modal open={false} title="Filters" onClose={onClose}>
+		<Modal open={open} title="Filters" onClose={onClose}>
 			<div>
 				<span className="text-lg tracking-[-1px] font-bold text-gray-800">
 					Conta

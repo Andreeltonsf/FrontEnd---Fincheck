@@ -18,7 +18,8 @@ export function Accounts() {
 		toggleValuesVisibility,
 		isLoading,
 		accounts,
-    openNewAccountModal,
+		openNewAccountModal,
+		currentBalance,
 	} = useAccountsController();
 
 	return (
@@ -39,7 +40,7 @@ export function Accounts() {
 									!areValuesVisible && "blur-md",
 								)}
 							>
-								{formatCurrency(100000)}
+								{formatCurrency(currentBalance)}
 							</strong>
 							{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 							<button
@@ -53,8 +54,6 @@ export function Accounts() {
 
 					<div className="flex-1 flex flex-col justify-end mt-10 md:mt-0">
 						{accounts.length === 0 && (
-
-
 							<div className="mb-4 flex flex-col" slot="container-start">
 								<strong className="text-white tracking-[-1px] text-lg font-bold">
 									Minhas contas
@@ -62,7 +61,7 @@ export function Accounts() {
 								<button
 									type="button"
 									className="mt-4 h-52 rounded-2xl border-2 border-dashed border-teal-600 flex flex-col items-center justify-center gap-4 text-white"
-                  onClick={openNewAccountModal}
+									onClick={openNewAccountModal}
 								>
 									<div className="w-11 h-11 rounded-full border-2 border-teal-600 flex  items-center justify-center border-dashed">
 										<PlusIcon className="w-6 h-6" />
@@ -99,30 +98,11 @@ export function Accounts() {
 										/>
 									</div>
 
-									<SwiperSlide>
-										<AccountCard
-											color="#7950F2"
-											name="Saldo Atual"
-											balance={100}
-											type="CASH"
-										/>
-									</SwiperSlide>
-									<SwiperSlide>
-										<AccountCard
-											color="#7950F2"
-											name="Saldo Atual"
-											balance={100}
-											type="INVESTMENT"
-										/>
-									</SwiperSlide>
-									<SwiperSlide>
-										<AccountCard
-											color="#7950F2"
-											name="Saldo Atual"
-											balance={100}
-											type="CHECKING"
-										/>
-									</SwiperSlide>
+									{accounts.map((account) => (
+										<SwiperSlide key={account.id}>
+											<AccountCard data={account} />
+										</SwiperSlide>
+									))}
 								</Swiper>
 							</div>
 						)}

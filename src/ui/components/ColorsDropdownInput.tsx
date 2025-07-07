@@ -8,6 +8,8 @@ import { ColorIcon } from "./icons/ColorIcon";
 interface ColorsDropdownInputProps {
 	className?: string;
 	error?: string;
+	value?: string;
+	onChange?(value: string): void;
 }
 
 type Color = {
@@ -35,11 +37,21 @@ const colors: Color[] = [
 export function ColorsDropdownInput({
 	className,
 	error,
+	value,
+	onChange,
 }: ColorsDropdownInputProps) {
-	const [selectedColor, setSelectedColor] = useState<Color | null>(null);
+	const [selectedColor, setSelectedColor] = useState<Color | null>(() => {
+		if (!value) {
+			return null;
+		}
+
+		const color = colors.find((c) => c.color === value) ?? null;
+		return color;
+	});
 
 	function handleSelect(color: Color) {
 		setSelectedColor(color);
+		onChange?.(color.color);
 	}
 	return (
 		<div>
@@ -55,13 +67,13 @@ export function ColorsDropdownInput({
 					>
 						Cor
 						<div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-700">
-              {!selectedColor && (
-							<ChevronDownIcon className=" w-6 h-6 text-gray-800" />
-						)}
-						{selectedColor && (
-							<ColorIcon color={selectedColor.color} bg={selectedColor.bg} />
-						)}
-            </div>
+							{!selectedColor && (
+								<ChevronDownIcon className=" w-6 h-6 text-gray-800" />
+							)}
+							{selectedColor && (
+								<ColorIcon color={selectedColor.color} bg={selectedColor.bg} />
+							)}
+						</div>
 					</button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content className="grid grid-cols-4">

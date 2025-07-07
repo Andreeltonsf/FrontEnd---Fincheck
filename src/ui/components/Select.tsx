@@ -11,13 +11,17 @@ interface SelectProps {
     value: string;
     label: string;
   }[]
+
+  onChange?(value: string): void;
+  value?: string;
 }
 
-export function Select({ className, error, placeholder , options }: SelectProps) {
-	const [selectedValue, setSelectValue] = useState("");
+export function Select({ className, error, placeholder , options, onChange, value }: SelectProps) {
+	const [selectedValue, setSelectValue] = useState(value ?? "");
 
 	function handleValueChange(value: string) {
 		setSelectValue(value);
+    onChange?.(value);
 	}
 	return (
 		<div>
@@ -32,7 +36,7 @@ export function Select({ className, error, placeholder , options }: SelectProps)
 				>
 					{placeholder}
 				</label>
-				<RdxSelect.Root onValueChange={handleValueChange} value={selectedValue}>
+				<RdxSelect.Root value={value} onValueChange={handleValueChange} >
 					<RdxSelect.Trigger
 						className={cn(
 							"bg-white w-full rounded-lg border border-gray-500 px-3 h-[52px] text-gray-800   focus:border-gray-800 transition-all outline-none text-left relative pt-4 ",
@@ -46,7 +50,7 @@ export function Select({ className, error, placeholder , options }: SelectProps)
 						</RdxSelect.Icon>
 					</RdxSelect.Trigger>
 					<RdxSelect.Content
-						className="z-[99px] overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] w-[352px] "
+						className="z-[200] overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] w-[352px] "
 						position="popper"
 					>
 						<RdxSelect.Viewport className="p-2">
