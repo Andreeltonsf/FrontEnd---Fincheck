@@ -13,7 +13,8 @@ export function AccountCard({ data }: AccountCardProps) {
 
 	const { name, type, currentBalance, color } = data;
 	return (
-		<div
+		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+<div
 			type="button"
 			className="p-4 bg-white rounded-2xl h-[200px] flex flex-col justify-between border-b-4 text-left"
 			style={{ borderColor: color }}
