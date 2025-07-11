@@ -31,6 +31,14 @@ export function useTransactionsController() {
     }
   }
 
+  function handleApplyFilters({bankAccounId,year}:{
+    bankAccounId:string | undefined;year:number
+  }) {
+    handleChangeFilters('bankAccountId')(bankAccounId);
+    handleChangeFilters('year')(year);
+    setIsFiltersModalOpen(false);
+  }
+
   function handleChangeMonth(month: number) {
     setFilters((prevState) =>({
       ...prevState,
@@ -58,5 +66,6 @@ export function useTransactionsController() {
     handleChangeMonth,
     filters,
     handleChangeFilters,
+    handleApplyFilters
 	};
 }
