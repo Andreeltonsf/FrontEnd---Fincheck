@@ -1,5 +1,5 @@
 import { PlusIcon } from "@radix-ui/react-icons";
-import "swiper/css/swiper.css";
+import "swiper/css/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { cn } from "../../../../../app/utils/cn";
 import { formatCurrency } from "../../../../../app/utils/formatCurrency";
