@@ -1,29 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTransactions } from "../../../../../app/hooks/useTransactions";
+import type { TransactionFilters } from "../../../../../app/services/transactionsService/getAll";
 import { useDashboard } from "../DashBoardContext/useDashboard";
 
-
-
 export function useTransactionsController() {
-  const{ areValuesVisible } = useDashboard();
+	const { areValuesVisible } = useDashboard();
+
+	const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
+
+  const [filters, setFilters] = useState<TransactionFilters>({
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
+  })
+
+	const { transactions,isLoading,isInitialLoading,refetch } = useTransactions(filters);
 
 
-  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(true);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(()=>{
+	refetch();
+  }, [filters, refetch])
 
-  function handleOpenFiltersModal() {
-    setIsFiltersModalOpen(true);
+  
+
+  function handleChangeMonth(month: number) {
+    setFilters((prevState) =>({
+      ...prevState,
+      month,
+    }))
   }
 
-  function handleCloseFiltersModal() {
-    setIsFiltersModalOpen(false);
-  }
 
-  return {
-    areValuesVisible,
-    isInitialLoading: false,
-    isLoading: false,
-    transactions:[],
-    handleOpenFiltersModal,
-    handleCloseFiltersModal,
-    isFiltersModalOpen,
-  }
+	function handleOpenFiltersModal() {
+		setIsFiltersModalOpen(true);
+	}
+
+	function handleCloseFiltersModal() {
+		setIsFiltersModalOpen(false);
+	}
+
+	return {
+		areValuesVisible,
+		isInitialLoading,
+		isLoading,
+		transactions,
+		handleOpenFiltersModal,
+		handleCloseFiltersModal,
+		isFiltersModalOpen,
+    handleChangeMonth,
+    filters
+	};
 }

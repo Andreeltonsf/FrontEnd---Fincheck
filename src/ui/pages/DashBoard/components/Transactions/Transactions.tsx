@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { MONTHS } from "../../../../../app/config/constants";
 import { cn } from "../../../../../app/utils/cn";
 import { formatCurrency } from "../../../../../app/utils/formatCurrency";
+import { formatDate } from "../../../../../app/utils/formatDate";
 import emptyStateImage from "../../../../../assets/emptyStateImage.svg";
 import { Spinner } from "../../../../components/Spinner";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
@@ -21,6 +22,8 @@ export function Transactions() {
 		handleCloseFiltersModal,
 		isFiltersModalOpen,
 		handleOpenFiltersModal,
+    handleChangeMonth,
+    filters
 	} = useTransactionsController();
 
 	const hasTransactions = transactions.length > 0;
@@ -51,7 +54,14 @@ export function Transactions() {
 						</div>
 
 						<div className="mt-6">
-							<Swiper slidesPerView={3} centeredSlides>
+							<Swiper
+                slidesPerView={3}
+                centeredSlides
+                initialSlide={filters.month}
+                onSlideChange={(swiper) => {
+                  if (swiper.realIndex === filters.month) return;
+                  handleChangeMonth(swiper.realIndex)
+                }} className="swiper-container">
 								<SliderNavigation />
 
 								{MONTHS.map((month, index) => (
@@ -87,29 +97,43 @@ export function Transactions() {
 							</div>
 						)}
 
-						{hasTransactions && !isLoading && (
-							<div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-								<div className="flex-1 flex items-center gap-3">
-									<CategoryIcon type="expense" />
-
-									<div>
-										<strong className="font-bold tracking-[-0.5px] block">
-											Almoço
-										</strong>
-										<span className="text-gray-600 text-sm">12/06/2022</span>
-									</div>
-								</div>
-
-								<span
-									className={cn(
-										"text-red-800 tracking-[0.5px] font-medium",
-										!areValuesVisible && "blur-sm",
-									)}
+						{hasTransactions &&
+							!isLoading &&
+							transactions.map((transaction) => (
+								<div
+									key={transaction.id}
+									className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
 								>
-									{formatCurrency(100)}
-								</span>
-							</div>
-						)}
+									<div className="flex-1 flex items-center gap-3">
+										<CategoryIcon
+											type={
+												transaction.type === "INCOME" ? "income" : "expense"
+											}
+											category={transaction.category?.icon}
+										/>
+
+										<div>
+											<strong className="font-bold tracking-[-0.5px] block">
+												{transaction.name}
+											</strong>
+											<span className="text-gray-600 text-sm">
+												{formatDate(new Date(transaction.date))}
+											</span>
+										</div>
+									</div>
+
+									<span
+										className={cn(
+											"tracking-[0.5px] font-medium",
+                      transaction.type === "EXPENSE" ? "text-red-800" : "text-green-800",
+											!areValuesVisible && "blur-sm",
+										)}
+									>
+                    {transaction.type === "EXPENSE" ? "-" : "+"}
+										{formatCurrency(transaction.value)}
+									</span>
+								</div>
+							))}
 					</div>
 				</>
 			)}

@@ -1,5 +1,7 @@
 import { createTransaction } from "./create";
+import { getAllTransactions } from "./getAll";
 
 export const transactionsService = {
-  create: createTransaction
+	create: createTransaction,
+	getAll: getAllTransactions,
 };
