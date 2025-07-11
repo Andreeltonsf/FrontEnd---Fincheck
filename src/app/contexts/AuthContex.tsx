@@ -22,7 +22,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		return !!storedAccessToken;
 	});
 
-	const { isError, data, isFetching, isSuccess, remove } = useQuery({
+	const { isError, isFetching, isSuccess, remove } = useQuery({
 		queryKey: ["LoggedUser"],
 		queryFn: () => usersService.me(),
 		retry: 1,

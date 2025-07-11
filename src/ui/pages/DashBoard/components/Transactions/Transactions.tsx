@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { MONTHS } from "../../../../../app/config/constants";
 import { cn } from "../../../../../app/utils/cn";
@@ -6,22 +5,27 @@ import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 import emptyStateImage from "../../../../../assets/emptyStateImage.svg";
 import { Spinner } from "../../../../components/Spinner";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
-import { TransactionsIcon } from "../../../../components/icons/TransactionsIcon";
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
+import { FiltersModal } from "./FiltersModal";
 import { SliderNavigation } from "./SliderNavigation";
 import { SliderOption } from "./SliderOption";
-import { useTransactionsController } from "./useTransactrionsController";
 import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
-import { FiltersModal } from "./FiltersModal";
+import { useTransactionsController } from "./useTransactrionsController";
 
 export function Transactions() {
-	const { areValuesVisible, isInitialLoading, transactions, isLoading,handleCloseFiltersModal, isFiltersModalOpen, handleOpenFiltersModal } =
-		useTransactionsController();
+	const {
+		areValuesVisible,
+		isInitialLoading,
+		transactions,
+		isLoading,
+		handleCloseFiltersModal,
+		isFiltersModalOpen,
+		handleOpenFiltersModal,
+	} = useTransactionsController();
 
 	const hasTransactions = transactions.length > 0;
 	return (
 		<div className="bg-[#F1F3F5] rounded-2xl w-full h-full md:p-10 px-4 py-8 flex flex-col">
-
 			{isInitialLoading && (
 				<div className="w-full h-full flex items-center justify-center">
 					<Spinner />
@@ -29,12 +33,19 @@ export function Transactions() {
 			)}
 			{!isInitialLoading && (
 				<>
-        <FiltersModal open={isFiltersModalOpen} onClose={handleCloseFiltersModal} />
+					<FiltersModal
+						open={isFiltersModalOpen}
+						onClose={handleCloseFiltersModal}
+					/>
 					<header className="">
 						<div className="flex items-center justify-between">
 							<TransactionTypeDropdown />
 
-							<button type="button" className="flex items-center gap-2" onClick={handleOpenFiltersModal}>
+							<button
+								type="button"
+								className="flex items-center gap-2"
+								onClick={handleOpenFiltersModal}
+							>
 								<FilterIcon />
 							</button>
 						</div>

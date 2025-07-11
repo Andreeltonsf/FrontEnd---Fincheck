@@ -29,7 +29,6 @@ export function useEditAccountModalController() {
 		handleSubmit: hookFormSubmit,
 		formState: { errors },
 		control,
-		reset,
 	} = useForm<FormData>({
 		resolver: zodResolver(schema),
 		defaultValues: {
@@ -80,7 +79,7 @@ export function useEditAccountModalController() {
 			queryClient.invalidateQueries(["BankAccounts"]);
 
 			toast.success("A conta foi deletada com sucesso");
-      closeEditAccountModal();
+			closeEditAccountModal();
 		} catch {
 			toast.error("Erro ao deletar a conta!");
 		}
@@ -99,6 +98,6 @@ export function useEditAccountModalController() {
 		handleOpenDeleteModal,
 		handleCloseDeleteModal,
 		handleConfirmDelete,
-    isLoadingDelete
+		isLoadingDelete,
 	};
 }
